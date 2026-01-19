@@ -1,0 +1,32 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "outDir": "./dist/out-tsc",
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "module": "ES2022",
+    "lib": ["ES2022", "dom"],
+    "target": "ES2022",
+    "useDefineForClassFields": false,
+    "paths": {
+      "@example/stencil-lib": ["../stencil-lib/dist/types"],
+      "@example/stencil-lib/loader": ["../stencil-lib/loader"],
+      "@example/stencil-lib-angular": ["../stencil-lib-angular/dist"]
+    }
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}

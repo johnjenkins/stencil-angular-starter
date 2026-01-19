@@ -1,0 +1,31 @@
+{
+  "name": "@example/stencil-lib-angular",
+  "version": "0.0.1",
+  "description": "Angular wrappers for @example/stencil-lib",
+  "scripts": {
+    "build": "ng-packagr -p ng-package.json",
+    "start": "ng-packagr -p ng-package.json --watch"
+  },
+  "peerDependencies": {
+    "@angular/core": ">=21.0.0",
+    "@angular/common": ">=21.0.0",
+    "@angular/forms": ">=21.0.0",
+    "@example/stencil-lib": "workspace:*",
+    "rxjs": ">=7.0.0"
+  },
+  "dependencies": {
+    "@example/stencil-lib": "workspace:*",
+    "tslib": ">=2.0.0"
+  },
+  "devDependencies": {
+    "@angular/compiler": "^21.0.0",
+    "@angular/compiler-cli": "^21.0.0",
+    "@angular/core": "^21.0.0",
+    "@angular/common": "^21.0.0",
+    "@angular/forms": "^21.0.0",
+    "@example/stencil-lib": "workspace:*",
+    "ng-packagr": "^21.0.0",
+    "typescript": "~5.9.0"
+  },
+  "license": "MIT"
+}

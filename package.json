@@ -1,0 +1,24 @@
+{
+  "name": "stencil-angular-repro",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "pnpm run build:stencil && pnpm run build:angular-wrapper && concurrently -n stencil,angular-wrapper,reload,angular-app -c blue,green,yellow,magenta \"pnpm run start:stencil\" \"pnpm run start:angular-wrapper\" \"pnpm run start:reload-trigger\" \"pnpm run start:angular-app:wait\"",
+    "start:stencil": "pnpm --filter @example/stencil-lib run start",
+    "start:angular-wrapper": "pnpm --filter @example/stencil-lib-angular run start",
+    "start:angular-app": "pnpm --filter angular-app run start",
+    "start:angular-app:wait": "wait-on packages/stencil-lib-angular/dist/package.json && pnpm run start:angular-app",
+    "start:reload-trigger": "chokidar 'packages/stencil-lib-angular/dist/**/*' 'packages/stencil-lib/dist/**/*.js' 'packages/stencil-lib/loader/**/*.js' -c 'touch packages/angular-app/src/main.ts'",
+    "build": "pnpm run build:stencil && pnpm run build:angular-wrapper && pnpm run build:angular-app",
+    "build:stencil": "pnpm --filter @example/stencil-lib run build",
+    "build:angular-wrapper": "pnpm --filter @example/stencil-lib-angular run build",
+    "build:angular-app": "pnpm --filter angular-app run build"
+  },
+  "devDependencies": {
+    "chokidar-cli": "^3.0.0",
+    "concurrently": "^9.0.0",
+    "nx": "^21.0.0",
+    "wait-on": "^9.0.3"
+  },
+  "packageManager": "pnpm@9.15.0"
+}

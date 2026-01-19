@@ -1,0 +1,37 @@
+{
+  "name": "@example/stencil-lib",
+  "version": "0.0.1",
+  "description": "Stencil component library for reproduction cases",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "types": "dist/types/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/stencil-lib/stencil-lib.esm.js",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs.js"
+    },
+    "./loader": {
+      "types": "./loader/index.d.ts",
+      "import": "./loader/index.js",
+      "require": "./loader/index.cjs.js"
+    }
+  },
+  "files": [
+    "dist/",
+    "loader/"
+  ],
+  "scripts": {
+    "build": "stencil build",
+    "start": "stencil build --watch --prod",
+    "generate": "stencil generate"
+  },
+  "devDependencies": {
+    "@stencil/angular-output-target": "latest",
+    "@stencil/core": "latest"
+  },
+  "license": "MIT"
+}
