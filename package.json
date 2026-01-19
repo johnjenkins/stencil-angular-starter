@@ -20,5 +20,10 @@
     "nx": "^21.0.0",
     "wait-on": "^9.0.3"
   },
+  "pnpm": {
+    "overrides": {
+      "find-cache-directory": "5.0.0"
+    }
+  },
   "packageManager": "pnpm@9.15.0"
 }
