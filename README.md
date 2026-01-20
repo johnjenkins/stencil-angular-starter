@@ -6,16 +6,13 @@ A minimal reproduction monorepo for testing Stencil components with Angular outp
 
 - `@stencil/core`: latest
 - `@stencil/angular-output-target`: latest
-- Angular: ^21.0.0
+- `@angular/*`: ^21.0.0
 
 ## Setup
 
 ```bash
 # Install dependencies
 pnpm install
-
-# Build everything (required before first start)
-pnpm run build
 
 # Start development mode (builds stencil first, then watches all)
 pnpm start
