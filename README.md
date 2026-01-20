@@ -1,4 +1,4 @@
-# Stencil + Angular Reproduction
+# Stencil + Angular Starter
 
 A minimal reproduction monorepo for testing Stencil components with Angular output targets.
 
