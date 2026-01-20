@@ -17,8 +17,10 @@
   "devDependencies": {
     "chokidar-cli": "^3.0.0",
     "concurrently": "^9.0.0",
-    "nx": "^21.0.0",
     "wait-on": "^9.0.3"
+  },
+  "engines": {
+    "node": ">=22.0.0"
   },
   "packageManager": "pnpm@9.15.0"
 }
