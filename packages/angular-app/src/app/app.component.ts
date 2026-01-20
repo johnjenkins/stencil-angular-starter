@@ -11,7 +11,6 @@ import { StencilLibAngularModule } from '@example/stencil-lib-angular';
       <h1>Stencil + Angular Integration</h1>
 
       <section>
-        <h2>Basic Usage with Events</h2>
         <example-input
           [value]="basicValue()"
           placeholder="Type something..."
