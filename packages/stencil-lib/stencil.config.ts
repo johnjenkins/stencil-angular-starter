@@ -8,7 +8,6 @@ export const config: Config = {
   outputTargets: [
     angularOutputTarget({
       componentCorePackage: '@example/stencil-lib',
-      outputType: 'component',
       directivesProxyFile: '../stencil-lib-angular/src/lib/stencil-generated/components.ts',
       directivesArrayFile: '../stencil-lib-angular/src/lib/stencil-generated/index.ts',
       valueAccessorConfigs: [

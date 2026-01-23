@@ -1,11 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { StencilLibAngularModule } from '@example/stencil-lib-angular';
+import { ExampleInput } from '@example/stencil-lib-angular';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ReactiveFormsModule, StencilLibAngularModule],
+  imports: [ReactiveFormsModule, ExampleInput],
   template: `
     <div class="container">
       <h1>Stencil + Angular Integration</h1>

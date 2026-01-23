@@ -4,10 +4,11 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Even
 
 import { ProxyCmp } from './angular-component-lib/utils';
 
-import { Components } from '@example/stencil-lib';
+import type { Components } from '@example/stencil-lib/components';
 
-
+import { defineCustomElement as defineExampleInput } from '@example/stencil-lib/components/example-input.js';
 @ProxyCmp({
+  defineCustomElementFn: defineExampleInput,
   inputs: ['disabled', 'placeholder', 'value']
 })
 @Component({
@@ -17,7 +18,6 @@ import { Components } from '@example/stencil-lib';
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['disabled', 'placeholder', 'value'],
   outputs: ['exampleChange', 'exampleFocus', 'exampleBlur'],
-  standalone: false
 })
 export class ExampleInput {
   protected el: HTMLExampleInputElement;

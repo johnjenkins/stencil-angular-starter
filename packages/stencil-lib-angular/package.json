@@ -2,6 +2,7 @@
   "name": "@example/stencil-lib-angular",
   "version": "0.0.1",
   "description": "Angular wrappers for @example/stencil-lib",
+  "type": "module",
   "scripts": {
     "build": "ng-packagr -p ng-package.json",
     "start": "ng-packagr -p ng-package.json --watch"

@@ -2,6 +2,7 @@
   "name": "@example/stencil-lib",
   "version": "0.0.1",
   "description": "Stencil component library for reproduction cases",
+  "type": "module",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
   "types": "dist/types/index.d.ts",
@@ -18,6 +19,14 @@
       "types": "./loader/index.d.ts",
       "import": "./loader/index.js",
       "require": "./loader/index.cjs.js"
+    },
+    "./components/*.js": {
+      "types": "./dist/components/*.d.ts",
+      "import": "./dist/components/*.js"
+    },
+    "./components": {
+      "types": "./dist/components/index.d.ts",
+      "import": "./dist/components/index.js"
     }
   },
   "files": [
