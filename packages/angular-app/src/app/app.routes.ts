@@ -4,7 +4,7 @@ export const routes: Routes = [
   {
     path: 'table',
     loadComponent: () =>
-      import('./table-page.component').then(m => m.TablePageComponent),
+      import('./table-page-routed.component').then(m => m.TablePageRoutedComponent),
   },
   {
     path: 'input',

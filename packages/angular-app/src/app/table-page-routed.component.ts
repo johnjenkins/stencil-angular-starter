@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { afterNextRender, Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DataTable } from '@example/stencil-lib-angular';
 
@@ -10,27 +10,29 @@ interface PersonRow {
 }
 
 @Component({
-  selector: 'app-table-page',
+  selector: 'app-table-page-routed',
   standalone: true,
   imports: [CommonModule, DataTable],
   template: `
     <section>
-      <h2>Data table (eager, no signal guard)</h2>
-      <data-table
-        [data]="tableData"
-        [columns]="tableColumns"
-        [bindKey]="'id'"
-        [enableId]="true"
-        (viewRendered)="onViewRendered($event)"
-      >
-        <span slot="header-salary">💰 Salary</span>
-        @for (row of tableDataView; track row.id) {
-          <strong slot="cell-name-{{ row.id }}">{{ row.name }}</strong>
-          <span slot="cell-salary-{{ row.id }}">
-            {{ row.salary | currency:'USD':'symbol':'1.0-0' }}
-          </span>
-        }
-      </data-table>
+      <h2>Data table (routed, guarded with signal)</h2>
+      <!-- @if (tableReady()) { -->
+        <data-table
+          [data]="tableData"
+          [columns]="tableColumns"
+          [bindKey]="'id'"
+          [enableId]="true"
+          (viewRendered)="onViewRendered($event)"
+        >
+          <span slot="header-salary">💰 Salary</span>
+          @for (row of tableDataView; track row.id) {
+            <strong slot="cell-name-{{ row.id }}">{{ row.name }}</strong>
+            <span slot="cell-salary-{{ row.id }}">
+              {{ row.salary | currency:'USD':'symbol':'1.0-0' }}
+            </span>
+          }
+        </data-table>
+      <!-- } -->
     </section>
   `,
   styles: [`
@@ -47,7 +49,7 @@ interface PersonRow {
     }
   `]
 })
-export class TablePageComponent {
+export class TablePageRoutedComponent {
   tableColumns = [
     { fieldName: 'id', headerName: 'ID' },
     { fieldName: 'name', headerName: 'Name' },
@@ -61,6 +63,14 @@ export class TablePageComponent {
     { id: 3, name: 'Grace Hopper', role: 'Architect', salary: 115000 },
   ];
   tableDataView: PersonRow[] = [];
+  tableReady = signal(true);
+
+  constructor() {
+    // Routed activation races Stencil's connectedCallback: the custom element
+    // mounts before Angular has applied inputs / projected slot children.
+    // Defer rendering until after the next CD turn so bindings are in place.
+    afterNextRender(() => this.tableReady.set(true));
+  }
 
   onViewRendered(event: Event) {
     this.tableDataView = (event as CustomEvent<PersonRow[]>).detail ?? [];
