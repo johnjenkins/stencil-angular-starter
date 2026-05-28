@@ -63,7 +63,7 @@ export class TablePageRoutedComponent {
     { id: 3, name: 'Grace Hopper', role: 'Architect', salary: 115000 },
   ];
   tableDataView: PersonRow[] = [];
-  tableReady = signal(true);
+  tableReady = signal(false);
 
   constructor() {
     // Routed activation races Stencil's connectedCallback: the custom element
