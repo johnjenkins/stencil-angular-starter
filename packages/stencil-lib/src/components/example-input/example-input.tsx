@@ -3,7 +3,8 @@ import { Component, Prop, Event, EventEmitter, h, Host, Watch } from '@stencil/c
 @Component({
   tag: 'example-input',
   styleUrl: 'example-input.css',
-  shadow: true,
+  shadow: false,
+  scoped: true,
 })
 export class ExampleInput {
   /** The current value of the input */

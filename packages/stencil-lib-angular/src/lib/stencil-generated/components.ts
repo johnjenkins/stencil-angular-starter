@@ -6,7 +6,46 @@ import { ProxyCmp } from './angular-component-lib/utils';
 
 import type { Components } from '@example/stencil-lib/components';
 
+import { defineCustomElement as defineDataTable } from '@example/stencil-lib/components/data-table.js';
 import { defineCustomElement as defineExampleInput } from '@example/stencil-lib/components/example-input.js';
+@ProxyCmp({
+  defineCustomElementFn: defineDataTable,
+  inputs: ['bindKey', 'columns', 'data', 'enableId']
+})
+@Component({
+  selector: 'data-table',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['bindKey', 'columns', 'data', 'enableId'],
+  outputs: ['viewRendered', 'screenSizeChanged'],
+})
+export class DataTable {
+  protected el: HTMLDataTableElement;
+  @Output() viewRendered = new EventEmitter<CustomEvent<IDataTableDataTableRow[]>>();
+  @Output() screenSizeChanged = new EventEmitter<CustomEvent<IDataTableDataTableBreakpoint>>();
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+import type { DataTableRow as IDataTableDataTableRow } from '@example/stencil-lib/components';
+import type { DataTableBreakpoint as IDataTableDataTableBreakpoint } from '@example/stencil-lib/components';
+
+export declare interface DataTable extends Components.DataTable {
+  /**
+   * Emitted whenever the visible rows change. Useful for rendering custom cells.
+   */
+  viewRendered: EventEmitter<CustomEvent<IDataTableDataTableRow[]>>;
+  /**
+   * Emitted when the host crosses a breakpoint threshold.
+   */
+  screenSizeChanged: EventEmitter<CustomEvent<IDataTableDataTableBreakpoint>>;
+}
+
+
 @ProxyCmp({
   defineCustomElementFn: defineExampleInput,
   inputs: ['disabled', 'placeholder', 'value']

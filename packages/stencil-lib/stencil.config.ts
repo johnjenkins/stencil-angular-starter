@@ -4,8 +4,36 @@ import { angularOutputTarget } from '@stencil/angular-output-target';
 export const config: Config = {
   namespace: 'stencil-lib',
   hashFileNames: false,
-  sourceMap: true,
+  buildEs5: false,
+  sourceMap: false,
+  extras: {
+    enableImportInjection: true,
+    experimentalSlotFixes: true,
+    scopedSlotTextContentFix: true,
+  },
+  testing: {
+    testPathIgnorePatterns: ['node_modules', 'dist'],
+    setupFiles: [],
+  },
   outputTargets: [
+    {
+      type: 'dist',
+      esmLoaderPath: '../loader',
+      copy: [],
+    },
+    {
+      type: 'dist-custom-elements',
+      customElementsExportBehavior: 'auto-define-custom-elements',
+      externalRuntime: false,
+      generateTypeDeclarations: true,
+    },
+    {
+      type: 'docs-json',
+      file: 'dist/docs/components.json',
+    },
+    {
+      type: 'docs-readme',
+    },
     angularOutputTarget({
       componentCorePackage: '@example/stencil-lib',
       directivesProxyFile: '../stencil-lib-angular/src/lib/stencil-generated/components.ts',
@@ -19,17 +47,5 @@ export const config: Config = {
         },
       ],
     }),
-    {
-      type: 'dist',
-      esmLoaderPath: '../loader',
-    },
-    {
-      type: 'dist-custom-elements',
-      customElementsExportBehavior: 'auto-define-custom-elements',
-      externalRuntime: false,
-    },
   ],
-  extras: {
-    enableImportInjection: true,
-  }
 };

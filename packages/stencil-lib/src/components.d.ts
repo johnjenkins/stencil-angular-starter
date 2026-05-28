@@ -5,7 +5,36 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { DataTableBreakpoint, DataTableColumn, DataTableRow } from "./components/table/table";
+export { DataTableBreakpoint, DataTableColumn, DataTableRow } from "./components/table/table";
 export namespace Components {
+    /**
+     * A minimal data table component.
+     * Accepts `data` and `columns` (array or JSON string) and emits `viewRendered`
+     * whenever the visible rows change so consumers can render custom cells.
+     */
+    interface DataTable {
+        /**
+          * Property name used to uniquely identify each row. Only used when `enableId` is `true`.
+          * @defaultValue "key"
+         */
+        "bindKey": string;
+        /**
+          * The columns to display. Accepts an array or a JSON string.
+          * @default []
+         */
+        "columns": string | DataTableColumn[];
+        /**
+          * The rows to display. Accepts an array or a JSON string.
+          * @default []
+         */
+        "data": string | DataTableRow[];
+        /**
+          * When `true`, the cell slot names use `row[bindKey]` instead of the row index (e.g. `cell-name-{key}` rather than `cell-name-0`). Useful when the underlying dataset is reordered or filtered.
+          * @defaultValue false
+         */
+        "enableId": boolean;
+    }
     interface ExampleInput {
         /**
           * Whether the input is disabled
@@ -24,11 +53,38 @@ export namespace Components {
         "value": string;
     }
 }
+export interface DataTableCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDataTableElement;
+}
 export interface ExampleInputCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLExampleInputElement;
 }
 declare global {
+    interface HTMLDataTableElementEventMap {
+        "viewRendered": DataTableRow[];
+        "screenSizeChanged": DataTableBreakpoint;
+    }
+    /**
+     * A minimal data table component.
+     * Accepts `data` and `columns` (array or JSON string) and emits `viewRendered`
+     * whenever the visible rows change so consumers can render custom cells.
+     */
+    interface HTMLDataTableElement extends Components.DataTable, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLDataTableElementEventMap>(type: K, listener: (this: HTMLDataTableElement, ev: DataTableCustomEvent<HTMLDataTableElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLDataTableElementEventMap>(type: K, listener: (this: HTMLDataTableElement, ev: DataTableCustomEvent<HTMLDataTableElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLDataTableElement: {
+        prototype: HTMLDataTableElement;
+        new (): HTMLDataTableElement;
+    };
     interface HTMLExampleInputElementEventMap {
         "exampleChange": string;
         "exampleFocus": void;
@@ -49,10 +105,46 @@ declare global {
         new (): HTMLExampleInputElement;
     };
     interface HTMLElementTagNameMap {
+        "data-table": HTMLDataTableElement;
         "example-input": HTMLExampleInputElement;
     }
 }
 declare namespace LocalJSX {
+    /**
+     * A minimal data table component.
+     * Accepts `data` and `columns` (array or JSON string) and emits `viewRendered`
+     * whenever the visible rows change so consumers can render custom cells.
+     */
+    interface DataTable {
+        /**
+          * Property name used to uniquely identify each row. Only used when `enableId` is `true`.
+          * @defaultValue "key"
+         */
+        "bindKey"?: string;
+        /**
+          * The columns to display. Accepts an array or a JSON string.
+          * @default []
+         */
+        "columns"?: string | DataTableColumn[];
+        /**
+          * The rows to display. Accepts an array or a JSON string.
+          * @default []
+         */
+        "data"?: string | DataTableRow[];
+        /**
+          * When `true`, the cell slot names use `row[bindKey]` instead of the row index (e.g. `cell-name-{key}` rather than `cell-name-0`). Useful when the underlying dataset is reordered or filtered.
+          * @defaultValue false
+         */
+        "enableId"?: boolean;
+        /**
+          * Emitted when the host crosses a breakpoint threshold.
+         */
+        "onScreenSizeChanged"?: (event: DataTableCustomEvent<DataTableBreakpoint>) => void;
+        /**
+          * Emitted whenever the visible rows change. Useful for rendering custom cells.
+         */
+        "onViewRendered"?: (event: DataTableCustomEvent<DataTableRow[]>) => void;
+    }
     interface ExampleInput {
         /**
           * Whether the input is disabled
@@ -83,6 +175,7 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface IntrinsicElements {
+        "data-table": DataTable;
         "example-input": ExampleInput;
     }
 }
@@ -90,6 +183,12 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            /**
+             * A minimal data table component.
+             * Accepts `data` and `columns` (array or JSON string) and emits `viewRendered`
+             * whenever the visible rows change so consumers can render custom cells.
+             */
+            "data-table": LocalJSX.DataTable & JSXBase.HTMLAttributes<HTMLDataTableElement>;
             "example-input": LocalJSX.ExampleInput & JSXBase.HTMLAttributes<HTMLExampleInputElement>;
         }
     }

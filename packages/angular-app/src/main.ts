@@ -1,7 +1,15 @@
 import { bootstrapApplication } from '@angular/platform-browser';
+import { provideZoneChangeDetection } from '@angular/core';
+import { provideRouter, withHashLocation } from '@angular/router';
 import { AppComponent } from './app/app.component';
-import { defineCustomElements } from '@example/stencil-lib/loader';
+import { routes } from './app/app.routes';
+// import { defineCustomElements } from '@example/stencil-lib/loader';
 
-defineCustomElements(window);
+// defineCustomElements(window);
 
-bootstrapApplication(AppComponent).catch((err) => console.error(err));
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideZoneChangeDetection(),
+    provideRouter(routes, withHashLocation()),
+  ],
+}).catch((err) => console.error(err));
