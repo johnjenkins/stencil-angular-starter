@@ -1,7 +1,5 @@
 import { Component, h, Prop, State, Watch, Event, EventEmitter, Host, Element } from '@stencil/core';
 
-export type DataTableBreakpoint = 'small' | 'medium' | 'large';
-
 export interface DataTableColumn {
   /** Property name on each row to display in this column. */
   fieldName: string;
@@ -19,7 +17,6 @@ export type DataTableRow = Record<string, any>;
 @Component({
   tag: 'data-table',
   styleUrl: 'table.css',
-  shadow: false,
   scoped: true,
 })
 export class DataTable {
@@ -49,16 +46,10 @@ export class DataTable {
   /** Emitted whenever the visible rows change. Useful for rendering custom cells. */
   @Event() viewRendered!: EventEmitter<DataTableRow[]>;
 
-  /** Emitted when the host crosses a breakpoint threshold. */
-  @Event({ bubbles: true, composed: true }) screenSizeChanged!: EventEmitter<DataTableBreakpoint>;
-
   @State() private _data: DataTableRow[] = [];
   @State() private _columns: DataTableColumn[] = [];
   @State() private _slicedData: DataTableRow[] = [];
   @State() private _loaded = false;
-  @State() private _currentBreakpoint: DataTableBreakpoint | null = null;
-
-  private _resizeObserver?: ResizeObserver;
 
   @Watch('data')
   handleDataChanged(value: string | DataTableRow[]) {
@@ -79,48 +70,18 @@ export class DataTable {
   componentWillLoad() {
     this.handleColumnsChanged(this.columns);
     this.handleDataChanged(this.data);
-    this.breakpointChanged(document.body.clientWidth);
     this.emitViewRendered();
     this._loaded = true;
   }
 
   componentDidLoad() {
-    if (typeof ResizeObserver === 'undefined') return;
-    this._resizeObserver = new ResizeObserver(entries => {
-      for (const entry of entries) {
-        this.breakpointChanged(entry.contentRect.width);
-      }
-    });
-    this._resizeObserver.observe(this.el);
   }
 
   disconnectedCallback() {
-    this._resizeObserver?.disconnect();
-    this._resizeObserver = undefined;
-  }
-
-  /** Same thresholds as pt-table: >=992 large, >=768 medium, else small. */
-  private breakpointChanged(width: number) {
-    const previous = this._currentBreakpoint;
-    let next: DataTableBreakpoint;
-    if (width >= 992) {
-      next = 'large';
-    } else if (width >= 768) {
-      next = 'medium';
-    } else {
-      next = 'small';
-    }
-    if (previous !== next) {
-      this._currentBreakpoint = next;
-      this.screenSizeChanged.emit(next);
-      if (this._loaded) {
-        this.emitViewRendered();
-      }
-    }
   }
 
   private emitViewRendered() {
-    this._slicedData = this._data.slice(-2); // return last two items for demo
+    this._slicedData = this._data; 
     this.viewRendered.emit(this._slicedData);
   }
 

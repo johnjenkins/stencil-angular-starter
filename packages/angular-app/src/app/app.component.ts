@@ -1,15 +1,18 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { TablePageComponent } from './table-page.component';
+import { TablePageBrokenComponent } from "./table-page-broken.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, TablePageComponent],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, TablePageComponent, TablePageBrokenComponent],
   template: `
     <div class="container">
       <h1>Stencil + Angular Integration</h1>
       <app-table-page></app-table-page>
+      <app-table-page-broken></app-table-page-broken>
+
       <nav class="tabs">
         <a routerLink="/table" routerLinkActive="active">Table</a>
         <a routerLink="/input" routerLinkActive="active">Input</a>

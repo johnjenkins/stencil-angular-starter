@@ -5,8 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { DataTableBreakpoint, DataTableColumn, DataTableRow } from "./components/table/table";
-export { DataTableBreakpoint, DataTableColumn, DataTableRow } from "./components/table/table";
+import { DataTableColumn, DataTableRow } from "./components/table/table";
+export { DataTableColumn, DataTableRow } from "./components/table/table";
 export namespace Components {
     /**
      * A minimal data table component.
@@ -64,7 +64,6 @@ export interface ExampleInputCustomEvent<T> extends CustomEvent<T> {
 declare global {
     interface HTMLDataTableElementEventMap {
         "viewRendered": DataTableRow[];
-        "screenSizeChanged": DataTableBreakpoint;
     }
     /**
      * A minimal data table component.
@@ -136,10 +135,6 @@ declare namespace LocalJSX {
           * @defaultValue false
          */
         "enableId"?: boolean;
-        /**
-          * Emitted when the host crosses a breakpoint threshold.
-         */
-        "onScreenSizeChanged"?: (event: DataTableCustomEvent<DataTableBreakpoint>) => void;
         /**
           * Emitted whenever the visible rows change. Useful for rendering custom cells.
          */

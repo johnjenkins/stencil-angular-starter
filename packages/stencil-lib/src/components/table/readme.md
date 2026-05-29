@@ -23,10 +23,9 @@ whenever the visible rows change so consumers can render custom cells.
 
 ## Events
 
-| Event               | Description                                                                  | Type                                          |
-| ------------------- | ---------------------------------------------------------------------------- | --------------------------------------------- |
-| `screenSizeChanged` | Emitted when the host crosses a breakpoint threshold.                        | `CustomEvent<"large" \| "medium" \| "small">` |
-| `viewRendered`      | Emitted whenever the visible rows change. Useful for rendering custom cells. | `CustomEvent<DataTableRow[]>`                 |
+| Event          | Description                                                                  | Type                          |
+| -------------- | ---------------------------------------------------------------------------- | ----------------------------- |
+| `viewRendered` | Emitted whenever the visible rows change. Useful for rendering custom cells. | `CustomEvent<DataTableRow[]>` |
 
 
 ----------------------------------------------

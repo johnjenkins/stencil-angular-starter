@@ -16,21 +16,12 @@ interface PersonRow {
   template: `
     <section>
       <h2>Data table (routed, guarded with signal)</h2>
+      <span> uncomment the table ready signal to make it work</span>
       <!-- @if (tableReady()) { -->
         <data-table
           [data]="tableData"
           [columns]="tableColumns"
-          [bindKey]="'id'"
-          [enableId]="true"
-          (viewRendered)="onViewRendered($event)"
         >
-          <span slot="header-salary">💰 Salary</span>
-          @for (row of tableDataView; track row.id) {
-            <strong slot="cell-name-{{ row.id }}">{{ row.name }}</strong>
-            <span slot="cell-salary-{{ row.id }}">
-              {{ row.salary | currency:'USD':'symbol':'1.0-0' }}
-            </span>
-          }
         </data-table>
       <!-- } -->
     </section>

@@ -18,12 +18,11 @@ import { defineCustomElement as defineExampleInput } from '@example/stencil-lib/
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['bindKey', 'columns', 'data', 'enableId'],
-  outputs: ['viewRendered', 'screenSizeChanged'],
+  outputs: ['viewRendered'],
 })
 export class DataTable {
   protected el: HTMLDataTableElement;
   @Output() viewRendered = new EventEmitter<CustomEvent<IDataTableDataTableRow[]>>();
-  @Output() screenSizeChanged = new EventEmitter<CustomEvent<IDataTableDataTableBreakpoint>>();
   constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
     c.detach();
     this.el = r.nativeElement;
@@ -32,17 +31,12 @@ export class DataTable {
 
 
 import type { DataTableRow as IDataTableDataTableRow } from '@example/stencil-lib/components';
-import type { DataTableBreakpoint as IDataTableDataTableBreakpoint } from '@example/stencil-lib/components';
 
 export declare interface DataTable extends Components.DataTable {
   /**
    * Emitted whenever the visible rows change. Useful for rendering custom cells.
    */
   viewRendered: EventEmitter<CustomEvent<IDataTableDataTableRow[]>>;
-  /**
-   * Emitted when the host crosses a breakpoint threshold.
-   */
-  screenSizeChanged: EventEmitter<CustomEvent<IDataTableDataTableBreakpoint>>;
 }
 
 
