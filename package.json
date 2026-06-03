@@ -5,6 +5,7 @@
   "scripts": {
     "start": "pnpm run build:stencil && pnpm run build:angular-wrapper && concurrently -n stencil,angular-wrapper,reload,angular-app -c blue,green,yellow,magenta \"pnpm run start:stencil\" \"pnpm run start:angular-wrapper\" \"pnpm run start:reload-trigger\" \"pnpm run start:angular-app:wait\"",
     "start:stencil": "pnpm --filter @example/stencil-lib run start",
+    "start:stencil:dev": "pnpm --filter @example/stencil-lib run start:dev",
     "start:angular-wrapper": "pnpm --filter @example/stencil-lib-angular run start",
     "start:angular-app": "pnpm --filter angular-app run start",
     "start:angular-app:wait": "wait-on packages/stencil-lib-angular/dist/package.json && pnpm run start:angular-app",

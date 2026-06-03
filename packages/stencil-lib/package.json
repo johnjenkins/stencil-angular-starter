@@ -36,11 +36,12 @@
   "scripts": {
     "build": "stencil build",
     "start": "stencil build --watch --prod",
+    "start:dev": "stencil build --dev --watch --serve",
     "generate": "stencil generate"
   },
   "devDependencies": {
     "@stencil/angular-output-target": "latest",
-    "@stencil/core": "latest"
+    "@stencil/core": "4.41.2"
   },
   "license": "MIT"
 }
