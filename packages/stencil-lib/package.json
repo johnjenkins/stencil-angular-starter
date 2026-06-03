@@ -36,6 +36,7 @@
   "scripts": {
     "build": "stencil build",
     "start": "stencil build --watch --prod",
+    "start:dev": "stencil build --dev --watch --serve",
     "generate": "stencil generate"
   },
   "devDependencies": {
