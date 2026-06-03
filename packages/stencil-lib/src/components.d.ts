@@ -5,6 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { ExampleListItem } from "./components/example-list/example-list";
+export { ExampleListItem } from "./components/example-list/example-list";
 export namespace Components {
     interface ExampleInput {
         /**
@@ -22,6 +24,13 @@ export namespace Components {
           * @default ''
          */
         "value": string;
+    }
+    interface ExampleList {
+        /**
+          * The list of items to display
+          * @default []
+         */
+        "items": ExampleListItem[];
     }
 }
 export interface ExampleInputCustomEvent<T> extends CustomEvent<T> {
@@ -48,8 +57,15 @@ declare global {
         prototype: HTMLExampleInputElement;
         new (): HTMLExampleInputElement;
     };
+    interface HTMLExampleListElement extends Components.ExampleList, HTMLStencilElement {
+    }
+    var HTMLExampleListElement: {
+        prototype: HTMLExampleListElement;
+        new (): HTMLExampleListElement;
+    };
     interface HTMLElementTagNameMap {
         "example-input": HTMLExampleInputElement;
+        "example-list": HTMLExampleListElement;
     }
 }
 declare namespace LocalJSX {
@@ -82,8 +98,16 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
+    interface ExampleList {
+        /**
+          * The list of items to display
+          * @default []
+         */
+        "items"?: ExampleListItem[];
+    }
     interface IntrinsicElements {
         "example-input": ExampleInput;
+        "example-list": ExampleList;
     }
 }
 export { LocalJSX as JSX };
@@ -91,6 +115,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "example-input": LocalJSX.ExampleInput & JSXBase.HTMLAttributes<HTMLExampleInputElement>;
+            "example-list": LocalJSX.ExampleList & JSXBase.HTMLAttributes<HTMLExampleListElement>;
         }
     }
 }
