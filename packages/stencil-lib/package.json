@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@stencil/angular-output-target": "latest",
-    "@stencil/core": "latest"
+    "@stencil/core": "4.41.2"
   },
   "license": "MIT"
 }

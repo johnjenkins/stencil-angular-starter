@@ -5,6 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { ExampleList2Item } from "./components/example-list-2/example-list-2";
+export { ExampleList2Item } from "./components/example-list-2/example-list-2";
 export namespace Components {
     interface ExampleInput {
         /**
@@ -22,6 +24,13 @@ export namespace Components {
           * @default ''
          */
         "value": string;
+    }
+    interface ExampleList2 {
+        /**
+          * The list of items to display
+          * @default []
+         */
+        "items": ExampleList2Item[];
     }
 }
 export interface ExampleInputCustomEvent<T> extends CustomEvent<T> {
@@ -48,8 +57,15 @@ declare global {
         prototype: HTMLExampleInputElement;
         new (): HTMLExampleInputElement;
     };
+    interface HTMLExampleList2Element extends Components.ExampleList2, HTMLStencilElement {
+    }
+    var HTMLExampleList2Element: {
+        prototype: HTMLExampleList2Element;
+        new (): HTMLExampleList2Element;
+    };
     interface HTMLElementTagNameMap {
         "example-input": HTMLExampleInputElement;
+        "example-list-2": HTMLExampleList2Element;
     }
 }
 declare namespace LocalJSX {
@@ -82,8 +98,16 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
+    interface ExampleList2 {
+        /**
+          * The list of items to display
+          * @default []
+         */
+        "items"?: ExampleList2Item[];
+    }
     interface IntrinsicElements {
         "example-input": ExampleInput;
+        "example-list-2": ExampleList2;
     }
 }
 export { LocalJSX as JSX };
@@ -91,6 +115,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "example-input": LocalJSX.ExampleInput & JSXBase.HTMLAttributes<HTMLExampleInputElement>;
+            "example-list-2": LocalJSX.ExampleList2 & JSXBase.HTMLAttributes<HTMLExampleList2Element>;
         }
     }
 }

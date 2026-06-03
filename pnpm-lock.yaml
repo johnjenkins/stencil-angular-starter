@@ -79,7 +79,7 @@ importers:
         specifier: latest
         version: 1.2.0(@stencil/core@4.41.2)
       '@stencil/core':
-        specifier: latest
+        specifier: 4.41.2
         version: 4.41.2
 
   packages/stencil-lib-angular:

@@ -7,6 +7,7 @@ import { ProxyCmp } from './angular-component-lib/utils';
 import type { Components } from '@example/stencil-lib/components';
 
 import { defineCustomElement as defineExampleInput } from '@example/stencil-lib/components/example-input.js';
+import { defineCustomElement as defineExampleList2 } from '@example/stencil-lib/components/example-list-2.js';
 @ProxyCmp({
   defineCustomElementFn: defineExampleInput,
   inputs: ['disabled', 'placeholder', 'value']
@@ -45,5 +46,28 @@ export declare interface ExampleInput extends Components.ExampleInput {
    */
   exampleBlur: EventEmitter<CustomEvent<void>>;
 }
+
+
+@ProxyCmp({
+  defineCustomElementFn: defineExampleList2,
+  inputs: ['items']
+})
+@Component({
+  selector: 'example-list-2',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['items'],
+})
+export class ExampleList2 {
+  protected el: HTMLExampleList2Element;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface ExampleList2 extends Components.ExampleList2 {}
 
 
