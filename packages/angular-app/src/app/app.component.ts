@@ -1,11 +1,12 @@
 import { Component, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { ExampleInput } from '@example/stencil-lib-angular';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ReactiveFormsModule, ExampleInput],
+  imports: [ReactiveFormsModule, ExampleInput, RouterLink, RouterLinkActive, RouterOutlet],
   template: `
     <div class="container">
       <h1>Stencil + Angular Integration</h1>
@@ -20,6 +21,12 @@ import { ExampleInput } from '@example/stencil-lib-angular';
           <span slot="helper">Current value: {{ basicValue() }}</span>
         </example-input>
       </section>
+
+      <nav>
+        <a routerLink="/list" routerLinkActive="active">List</a>
+      </nav>
+
+      <router-outlet></router-outlet>
     </div>
   `,
   styles: [`
@@ -34,6 +41,25 @@ import { ExampleInput } from '@example/stencil-lib-angular';
       margin-bottom: 20px;
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    nav {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    nav a {
+      padding: 6px 12px;
+      border-radius: 6px;
+      text-decoration: none;
+      color: #333;
+      background: #eee;
+    }
+
+    nav a.active {
+      background: #333;
+      color: white;
     }
 
     h1 {
